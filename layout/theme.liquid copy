@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="google-site-verification" content="PqqRSnPJLK30h5Vmcb-d9fMSJuVKnZWcA5SC5ddgkaY" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>{{page_title}} - {{shop.name}}</title>
+	
+	<!-- If product page, output the first 160 characters of it's description as the META keywords content, otherwise use usual stuff -->
+	{% if template == "product" %}
+		<meta name="description" content="{{ product.description | strip_html | truncate: 150 }}" />
+	{% elsif template == "article" %}
+		<meta name="description" content="{{ article.content | strip_html | truncate: 150 }}" />
+	{% else %}
+		<meta name="description" content="Recycling fashion with vintage and retro clothing from the 40s, 50s, 60s, 70s and 80s including dresses, accessories, hats, bags, shoes, boots, coats & wedding gowns." />
+	{% endif %}
+	
+	<!-- If product page, output that products tags as the META tags, otherwise use normal ones -->
+	{% if template == "product" %}
+		<meta name="keywords" content="{% for tag in product.tags %}{{tag}}, {% endfor %}home, kitchen, gadget, cooking" />
+	{% else %}
+		<meta name="keywords" content="Vintage, Retro, Recycling, Recycled, Fashion, Clothes, Clothing, Dresses, Wedding, Gown, Prom, Ball, Coats, Jackets, Shoes, Boots, Bags, Shirts, Hats, Blazer, Heels, T Shirts" />
+	{% endif %}
+	
+	<link rev="The Tall Designer" href="http://www.thetalldesigner.com/" title="The Tall Designer: strategy, usability, design, development, marketing." />
+	<link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}" />
+	<link rel="apple-touch-icon" href="{{ 'favicon.ico' | asset_url }}" />
+	
+	<link rel="alternate" type="application/rss+xml" title="The Marjorie May Vintage Blog Feed" href="http://marjorie-may-vintage.myshopify.com/blogs/news.atom" />
+	<link rel="alternate" type="application/rss+xml" title="The Marjorie May Vintage Product Feed" href="http://marjorie-may-vintage.myshopify.com/collections/all.atom" />
+	
+	<!-- CSS -->
+	{{ 'reset.css' | asset_url | stylesheet_tag }}
+	{{ '960.css' | asset_url | stylesheet_tag }}
+	{{ 'core.css' | asset_url | stylesheet_tag }}
+	{{ 'buttons.css' | asset_url | stylesheet_tag }}
+	<link href="{{ 'print.css' | asset_url}}" rel="stylesheet" type="text/css" media="print" />
+	
+	<!--[if IE]>
+		{{ 'ie.css' | asset_url | stylesheet_tag }}
+	<![endif]-->
+		
+	<!--[if IE 6]>
+		{{ 'ie6.css' | asset_url | stylesheet_tag }}
+		<link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}" />
+	<![endif]-->
+
+	
+	<!--[if IE 7]>
+		{{ 'ie7.css' | asset_url | stylesheet_tag }}
+	<![endif]-->
+
+	<!--[if IE 8]>
+		{{ 'ie8.css' | asset_url | stylesheet_tag }}
+	<![endif]-->
+	
+	<!-- JS -->
+	
+	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>-->
+	{{ 'jquery-1.4.js' | asset_url | script_tag }}
+
+	<!-- Typekit code -->
+	<script type="text/javascript" src="http://use.typekit.com/ozq4opx.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	
+	
+	{{ 'jquery.autocomplete.min.js' | asset_url | script_tag }}
+		
+	<script type="text/javascript">
+		var data = [
+			{% for tag in collections.all.tags %}
+				{text:"{{ tag | escape }}", url:"{{ shop.url }}/collections/all/{{ tag | escape }}"},
+			{% endfor %}
+			{% paginate collections.all.products by 1000 %}
+				{% for product in collections.all.products %}
+					{text:"{{ product.title | escape }}", url:"{{ shop.url }}/products/{{ product.handle }}"},
+				{% endfor %}
+			{% endpaginate %}
+			{% if current_page > 1 %}
+				{% for product in collections.all.products %}
+					{text:"{{ product.title | escape }}", url:"{{ shop.url }}/products/{{ product.handle }}"},
+				{% endfor %}
+			{% endif %}
+			{text:"", url:""}
+		 ];
+		
+	jQuery(function() {
+	$("#search_text").autocomplete(data, {
+		matchContains: true,
+		scroll: false,
+		highlight: false,
+		minChars: 2,
+		selectFirst: false,
+		cacheLength:1,
+		formatItem: function(item) {
+			return item.text;
+		}
+	}).result(function(event, item) {
+		location.href = item.url;
+	});
+		});
+
+	</script>
+	
+	{{ 'script.js' | asset_url | script_tag }}
+	
+	<!-- lightbox code -->
+	{{ 'colorbox.css' | asset_url | stylesheet_tag }}
+	{{ 'jquery.colorbox-min.js' | asset_url | script_tag }}
+	
+	<!-- Share This code -->
+	<script type="text/javascript">var switchTo5x=true;</script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'4339d10e-6b8e-4ccf-94c5-6da3a885ea0b'});</script>
+	
+	{{ content_for_header }}
+	
+</head>
+
+<body id="{{page.title | replace: ' ', '_' }}">
+	
+<a class="hidden" href="#main">Skip to content</a>
+
+<div id="container" class="clearfix container_16">
+	<div id="header">
+		
+		<h1 id="logo">
+			<a title="Marjorie May Vintage" href="{{shop.url}}">
+				<span>Marjorie May Vintage</span>
+			</a>
+		</h1>
+
+		{% unless template == "cart" %}
+			<form id="search" action="/search">
+				<label for="search_text">Search</label>
+				<input class="grid_4" id="search_text" name="q" type="text" size="20" />
+				<input class="button grid_1" id="search_submit" type="submit" border="0" value="Go" alt="Submit Search"/>
+			</form>
+		{% endunless %}
+
+		{% unless template == "cart" %}
+			<div id="mini_cart" class=" {% if cart.item_count > 0 %} full {% else %} empty {% endif %}">
+				<a id="your_basket" href="/cart">Your Basket</a>
+				{% if cart.item_count > 0 %}
+					<div id="fold_out" class="drop_menu full">
+						<ul>
+							{% for item in cart.items %}
+								<li>
+									<a href="{{item.product.url}}" title="{{item.title}}">
+									{{ item.title | strip_html | truncate: 20 }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+						<h2>Total {{ cart.total_price | money }}</h2>
+						<a id="mini_cart_checkout" href="/cart" class="button">
+							Checkout
+						</a>
+					</div>
+				{% else %}
+					<div id="fold_out" class="drop_menu empty">
+						<p>Is sadly bereft of fabulous vintage items. If you need any help you can check any of these pages:</p>
+						<ul>
+							{% for link in linklists.footer.links %}
+								<li><a href="{{link.url}}" title="{{link.object.title}}">{{link.title}}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+			</div>
+		{% endunless %}
+		
+		{% unless template == "cart" %}	
+			<ul class="main_menu clearfix">
+				{% for link in linklists.main-menu.links %}
+			<li {% if link.object.tags and link.object.tags.size > 0 %} class="children"{% endif %}>
+				<a href="{{link.url}}">{{link.title}}</a>
+
+			{% if link.object.tags and link.object.tags.size > 0 %}
+				<ul class="drop_menu {% cycle 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth' %}">	
+					{% for tag in link.object.tags %}
+						{% capture tag_link %}{{ link.url }}/{{ tag | handle }}{% endcapture %}
+						<li>{{ tag | link_to: tag_link }}</li>
+					{% endfor %}
+					<li><a href="{{link.url}}">All items</a></li>
+				</ul>
+					{% endif %}
+			</li>
+				{% endfor %}
+			</ul>
+		{% endunless %}
+	</div>
+	
+	<div id="main" class="clearfix">
+		{{ content_for_layout }}
+	</div>
+
+	<div id="footer" class="clearfix">
+		<ul id="site_links" class="grid_6">
+			{% for link in linklists.footer.links %}
+				<li><a href="{{link.url}}" title="{{link.object.title}}">{{link.title}}</a></li>
+			{% endfor %}
+		</ul>
+		<ul id="social_links" class="grid_2 push_4">
+			{% for link in linklists.social.links %}
+				<li><a href="{{link.url}}" title="{{link.object.title}}">{{link.title}}</a></li>
+			{% endfor %}
+		</ul>
+		<h3 class="grid_16 alpha omega">&copy; Marjorie May Vintage. Created by <a href="http://www.thetalldesigner.com" title="Bespoke ecommerce and website sollutions in Brighton &amp; London UK" target="_BLANK">The Tall Designer</a></h3>
+		<div id="f1"></div>
+		<div id="f2"></div>
+		<div id="f3"></div>
+		<div id="f4"></div>
+	</div>
+	 
+</body>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-25103153-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</html>

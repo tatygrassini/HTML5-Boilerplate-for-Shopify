@@ -1,0 +1,41 @@
+/*Shopify allows you to upload your own CSS to the checkout However, there is already some CSS there, which you cannot remove and have to over rule here.
+Because of this, I have taken the default Eric Meyer reset 2.0 sheet and added !important to every declaration (as otherwise it would not over rule the Shopify CSS)
+All the changes you do want to make should follow this declaration and also have the !important clarifier written after every declaration. I know having all these
+ !importants makes the code look suspect but as we can't remove Shopify's own code, this seems the best sollution for the moment */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video,  input{
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	font-size: 100% !important;
+	font: inherit !important;
+	vertical-align: baseline !important;
+	background-image: none !important;
+	background-color: transparent !important;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block !important;
+}
+
+ol, ul {
+	list-style: disc !important;
+}
+
+table {
+	border-collapse: collapse !important;
+	border-spacing: 0 !important;
+}

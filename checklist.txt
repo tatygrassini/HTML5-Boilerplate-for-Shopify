@@ -1,0 +1,2 @@
+1. Create a smart collection called 'all' that contains all products.
+2. If your shop has a blog, create it in the Shopify admin and if you change the name from the default "news", update the RSS feed link in the head of the theme.liquid file.

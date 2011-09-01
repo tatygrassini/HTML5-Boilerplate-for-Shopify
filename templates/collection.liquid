@@ -1,0 +1,43 @@
+{% paginate collection.products by 15 %}
+
+<div id="category_description" class="
+{% if {{collection.handle}} == 'clothing' %} 
+clothing
+{% elsif {{collection.handle}} == 'accessories' %}
+accessories
+{% elsif {{collection.handle}} == 'jewellery' %}
+jewellery
+{% elsif {{collection.handle}} == 'bridal' %}
+bridal
+{% elsif {{collection.handle}} == 'homewares' %}
+homewares
+{% else %}
+default
+{% endif %}
+">
+<h1>{{collection.title}}</h1>
+{{collection.description}}
+</div>
+<div id="pagination">
+	{{ paginate | default_pagination }}
+</div>
+
+<ol id="product_list" class="thumb_list">
+	{% for product in collection.products %}
+		<li class="grid_3">
+			<a href="{{product.url}}" class="product_list_image">
+				<img class="thumb_image rot{%cycle '1','2','3','4','5','6','7'%}" src="{{ product.featured_image | product_img_url: 'medium'}}" alt="{{ product.description | strip_html | truncate: 75 }} click for more information" />
+				<h2 class="rot{%cycle '1','2','3','4','5','6','7'%}">{{product.title}}</h2>
+			</a>
+		</li>
+	{% endfor %}	
+</ol>
+
+<div id="pagination">
+	{{ paginate | default_pagination }}
+</div>
+
+{% endpaginate %}
+
+
+

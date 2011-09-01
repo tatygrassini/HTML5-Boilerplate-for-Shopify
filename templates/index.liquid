@@ -1,0 +1,20 @@
+<div id="mainarticle" class="grid_10 alpha">
+	{% assign article = pages.frontpage %}
+	{% if article.content != "" %}
+		<h2>{{ article.title }}</h2>
+		{{ article.content }}
+	{% endif %}
+</div>
+
+<ul id="home_page_product_promo" class="grid_6 omega thumb_list">
+	{% for product in collections.frontpage.products %}
+		<li class="grid_3 
+			{% cycle 'alpha', 'omega' %}
+		">
+			<a href="{{ product.url }}" title="Details on the {{product.title}}">
+				<img class="thumb_image rot{%cycle '1','2','3','4','5','6','7'%}" src="{{ product.featured_image | product_img_url: 'medium' }}"/>
+				<h2 class="rot{%cycle '1','2','3','4','5','6','7'%}">{{product.title}}</h2>
+			</a>
+		</li>
+	{% endfor %}
+</ul>
