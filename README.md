@@ -2,6 +2,18 @@
 
 ## Changelog:
 
+### v.0.2 : September 1st, 2011
+
+#### autocompletedataarray.js
+* Removed as it turns out we can;t use the paginate function in a page Shopify doens;t think we should be paginating in, meaning we can't loop through an array in it's entirety (50 limit)
+(see http://wiki.shopify.com/Pagination)
+
+#### checkout.css
+* By default, shopify provides generic styling for the checkout process which, although perfectly good, will not suit your store. You also cannot turn off this CSS. Because of this I have added a reset style sheet, based on Eric Meyer's reset 2.0 (http://meyerweb.com/eric/tools/css/reset/), *only* to the checkout.css file. You should add your own declarations in the same file and remember to add the !important after each declaration you add.
+
+#### 404.liquid
+* Replaced with a cut n paste from the original boiler plate release
+
 ### v.0.1 : September 1st, 2011
 
 ### 0.1 changelog
@@ -30,8 +42,6 @@
 
 #### CONTRIBUTORS
 [Miles Cheverton AKA The Tall Designer](http://www.thetalldesigner.com) 
-
-
 
 ## License:
 

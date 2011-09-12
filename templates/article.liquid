@@ -1,4 +1,5 @@
-<div class="article_wrapper">
+<article>
+	<article id="main_article">
 	<h1>{{ article.title }}</h1>
 	
 	<h2 class="article_date">
@@ -7,63 +8,61 @@
 		<span class="year">{{ article.created_at | date: "%Y" }} </span>
 	</h2>
 	{{ article.content }}
-</div>
+	</article>
+	{% if blog.comments_enabled? %}
+		<article id="comments">
+				<h2>Comments</h2>
 
-<!-- Comments -->
+				{% if article.comments_count != 0 %}
+					<!-- List all comments -->
+					<dl>
+						{% for comment in article.comments %}
+							<dt>{{ comment.author }} said on {{ comment.created_at | date: "%B %d, %Y" }}</dt>
+							<dd>{{ comment.content }}</dd>
+						{% endfor %}
+					</dl>
+				{% else %}
+				{% endif %}
 
-{% if blog.comments_enabled? %}
-	<div class="comments_wrapper">
-		<h3 id="tellus"><span id="tell">Tell</span> <span id="us">Us</span></h3>
-		
-		{% if article.comments_count != 0 %}
-			<!-- List all comments -->
-			<dl>
-				{% for comment in article.comments %}
-					<dt>{{ comment.author }} said on {{ comment.created_at | date: "%B %d, %Y" }}</dt>
-					<dd>{{ comment.content }}</dd>
-				{% endfor %}
-			</dl>
-		{% endif %}
-		
-		<!-- Comment Form -->
-		{% form article %}
-		
-		{% if article.comments_count != 0 %}
-			<h2>What do you think?</h2>
-		{% endif %}
-		
-		<!-- Check if a comment has been submitted in the last request, and if yes display an appropriate message -->
-		{% if form.posted_successfully? %}
-			{% if blog.moderated? %}
-				<p class="message">
-					Successfully posted your comment.<br />
-					As soon as it's aproved it will show up here.
-				</p>
-			{% else %}
-				<p class="message">Successfully posted your comment.</p>
-			{% endif %}
-		{% endif %}
-		
-		{% if form.errors %}
-			<p class="alert">Not all the fields have been filled out correctly!</p>
-		{% endif %}
-		
-		<label for="comment_author">Name</label>
-		<input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}error{% endif %}" />
-		<label for="comment_email">Email</label>
-		<input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}error{% endif %}" />
-		<label for="comment_body">Comment</label>
-		<textarea 
-			id="comment_body" 
-			name="comment[body]" 
-			cols="40" 
-			rows="5" 
-			class="{% if form.errors contains 'body' %}error{% endif %}">{{form.body}}</textarea>
-		
-		<input type="submit" value="Post comment" id="comment_submit" />
-		
-		{% endform %}
-		<!-- END Comment Form -->
-	</div>
-{% endif %}
-<!-- END Comments -->
+				<!-- Comment Form -->
+				{% form article %}
+
+				{% if article.comments_count != 0 %}
+					<h2>What do you think?</h2>
+				{% endif %}
+
+				<!-- Check if a comment has been submitted in the last request, and if yes display an appropriate message -->
+				{% if form.posted_successfully? %}
+					{% if blog.moderated? %}
+						<p class="message">
+							Successfully posted your comment.<br />
+							As soon as it's approved it will show up here.
+						</p>
+					{% else %}
+						<p class="message">Successfully posted your comment.</p>
+					{% endif %}
+				{% endif %}
+
+				{% if form.errors %}
+					<p class="alert">Not all the fields have been filled out correctly!</p>
+				{% endif %}
+
+				<label for="comment_author">Name</label>
+				<input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}error{% endif %}" />
+				<label for="comment_email">Email</label>
+				<input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}error{% endif %}" />
+				<label for="comment_body">Comment</label>
+				<textarea 
+					id="comment_body" 
+					name="comment[body]" 
+					cols="40" 
+					rows="5" 
+					class="{% if form.errors contains 'body' %}error{% endif %}">{{form.body}}</textarea>
+
+				<input type="submit" value="Post comment" id="comment_submit" />
+
+				{% endform %}
+				<!-- END Comment Form -->
+		</article>
+	{% endif %}
+</article>
