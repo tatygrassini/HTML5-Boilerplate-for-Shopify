@@ -1,5 +1,9 @@
 #  HTML5 Boilerplate [http://html5boilerplate.com](http://html5boilerplate.com)
 
+## Stated project aims.
+* Produce an unstyled shopify theme directly based on the html5Boilerplate code
+* Include code snippets that a majority of Shopify themes would benefit from but also make them easily removable
+
 ## Changelog:
 
 ### v.0.2 : September 1st, 2011
@@ -25,7 +29,7 @@
 * Removed as already provided by Shopify (check shopname.myshopify.com/robots.txt for the content of yours if you wish) & not user editable.
 
 #### .htaccess
-* Removed. Not relevent.
+* Removed. Not relevant.
 
 #### humans.txt
 * Removed. Not useful as we don't have access to the root.
@@ -37,7 +41,7 @@
 * Removed as none functional within Shopify
 
 #### Img, JS &CSS Folder
-* Removed and relevent contents rolled into the assets folder
+* Removed and relevant contents rolled into the assets folder
 
 
 #### CONTRIBUTORS
