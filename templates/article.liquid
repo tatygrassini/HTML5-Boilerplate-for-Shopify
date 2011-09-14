@@ -1,68 +1,51 @@
 <article>
-	<article id="main_article">
-	<h1>{{ article.title }}</h1>
-	
-	<h2 class="article_date">
-		<span class="month">{{ article.created_at | date: "%b" }}</span>
-		<span class="day">{{ article.created_at | date: "%d" }} </span>
-		<span class="year">{{ article.created_at | date: "%Y" }} </span>
-	</h2>
-	{{ article.content }}
-	</article>
+	<header>
+		<h1>{{ article.title }}</h1>
+		<p>Posted by <span rel="author">{{article.author}}</span> on <time datetime="{{ article.published_at | date: "%Y-%m-%dT%H:%M:%S%Z" }}" pubdate>{{ article.published_at | date: "%A, %B %d" }}</time></p>
+	</header>
+	<section id ="article_content">
+		<h1 hidden>Article content</h1>
+		{{ article.content }}
+	</section>
 	{% if blog.comments_enabled? %}
-		<article id="comments">
-				<h2>Comments</h2>
-
-				{% if article.comments_count != 0 %}
-					<!-- List all comments -->
-					<dl>
-						{% for comment in article.comments %}
-							<dt>{{ comment.author }} said on {{ comment.created_at | date: "%B %d, %Y" }}</dt>
-							<dd>{{ comment.content }}</dd>
-						{% endfor %}
-					</dl>
+		{% if article.comments_count > 0 %}
+			<section id="comments">
+				<h1>Comments</h1>
+				<dl>
+					{% for comment in article.comments %}
+						<dt><span rel="author">{{comment.author}}</span> said on <time datetime="{{ article.published_at | date: "%Y-%m-%dT%H:%M:%S%Z" }}" pubdate>{{ comment.created_at | date: "%A, %B %d" }}</time></dt>
+						<dd>{{comment.content}}</dd>
+					{% endfor %}
+				</dl>
+			</section>
+		{% endif %}
+		<section id="comment_form">
+			<h1>Add your comments</h1>
+		{% form article %}
+			<label for="comment_author">Name</label>
+			<input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}error{% endif %}" />
+			<label for="comment_email">Email</label>
+			<input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}error{% endif %}" />
+			<label for="comment_body">Comment</label>
+			<textarea 
+				id="comment_body" 
+				name="comment[body]" 
+				cols="40" 
+				rows="5" 
+				class="{% if form.errors contains 'body' %}error{% endif %}">{{form.body}}</textarea>
+			<input type="submit" value="Post comment" id="comment_submit" />
+			<!--Form error / success messages-->
+			{% if form.posted_successfully? %}
+				{% if blog.moderated? %}
+					<p class="message">	Successfully posted your comment, As soon as it's approved it will show up here.</p>
 				{% else %}
+					<p class="message">Successfully posted your comment.</p>
 				{% endif %}
-
-				<!-- Comment Form -->
-				{% form article %}
-
-				{% if article.comments_count != 0 %}
-					<h2>What do you think?</h2>
-				{% endif %}
-
-				<!-- Check if a comment has been submitted in the last request, and if yes display an appropriate message -->
-				{% if form.posted_successfully? %}
-					{% if blog.moderated? %}
-						<p class="message">
-							Successfully posted your comment.<br />
-							As soon as it's approved it will show up here.
-						</p>
-					{% else %}
-						<p class="message">Successfully posted your comment.</p>
-					{% endif %}
-				{% endif %}
-
-				{% if form.errors %}
-					<p class="alert">Not all the fields have been filled out correctly!</p>
-				{% endif %}
-
-				<label for="comment_author">Name</label>
-				<input type="text" id="comment_author" name="comment[author]" size="40" value="{{form.author}}" class="{% if form.errors contains 'author' %}error{% endif %}" />
-				<label for="comment_email">Email</label>
-				<input type="text" id="comment_email" name="comment[email]" size="40" value="{{form.email}}" class="{% if form.errors contains 'email' %}error{% endif %}" />
-				<label for="comment_body">Comment</label>
-				<textarea 
-					id="comment_body" 
-					name="comment[body]" 
-					cols="40" 
-					rows="5" 
-					class="{% if form.errors contains 'body' %}error{% endif %}">{{form.body}}</textarea>
-
-				<input type="submit" value="Post comment" id="comment_submit" />
-
-				{% endform %}
-				<!-- END Comment Form -->
-		</article>
+			{% endif %}
+			{% if form.errors %}
+				<p class="alert">Not all the fields have been filled out correctly!</p>
+			{% endif %}
+		{% endform %}
+		</section>
 	{% endif %}
 </article>

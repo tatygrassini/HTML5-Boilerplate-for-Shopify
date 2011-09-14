@@ -6,6 +6,10 @@
 
 ## Changelog:
 
+### v.0.3 : September 14th, 2011
+* Updated the two blog templates, blog.liquid and article.liquid to have proper HTML5 elements and spent some time making sure the <time> element was being used properly with correctly formatted ISO8601 datetime attributes. It doesn;t seem like much but it took ages to make sure they were right and that the sections / article elements were correctly nested and the document outline was working as you'd want it to.
+* Also fiddle with headings on the theme.liquid page to ensure there were headings to set the document outline properly.
+
 ### v.0.2 : September 1st, 2011
 
 #### autocompletedataarray.js

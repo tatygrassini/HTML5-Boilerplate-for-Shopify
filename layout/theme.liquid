@@ -70,9 +70,11 @@
 </head>
 
 <body>
+	<h1>{% if page.title %} {{page.title}} {% else %} {{blog.title}} {% endif %}</h1>
 	<div id="container">
 		<header>	
 			<nav>
+				<h1 hidden>Main Navigation</h1>
 				<ul>
 					{% for link in linklists.main-menu.links %}
 						<li {% if link.object.tags and link.object.tags.size > 0 %} class="children"{% endif %}>
@@ -123,7 +125,7 @@
 	{{ 'plugins.js' | asset_url | script_tag }}
 	
 	<!--Create the data array for the autocomplete code-->
-	<!--Why don;t we put this in a seperate file? because we can't use the 'paginate' liquid function in an exteriorautocompletearray.js file-->
+	<!--Why don;t we put this in a seperate file? because we can't use the 'paginate' liquid function in an exterior autocompletearray.js file-->
 	<script type="text/javascript">
 		var data = [
 			{% for tag in collections.all.tags %}
