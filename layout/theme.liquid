@@ -94,8 +94,8 @@
 			</nav>
 			<form id="search" action="/search">
 				<label for="search_text">Search</label>
-				<input class="grid_4" id="search_text" name="q" type="text" size="20" />
-				<input class="button grid_1" id="search_submit" type="submit" border="0" value="Go" alt="Submit Search"/>
+				<input id="search_text" name="q" type="text" size="20" />
+				<input id="search_submit" type="submit" border="0" value="Go" alt="Submit Search"/>
 			</form>
 		</header>
 		<div id="main" role="main">
@@ -125,7 +125,7 @@
 	{{ 'plugins.js' | asset_url | script_tag }}
 	
 	<!--Create the data array for the autocomplete code-->
-	<!--Why don;t we put this in a seperate file? because we can't use the 'paginate' liquid function in an exterior autocompletearray.js file-->
+	<!--Why don't we put this in a separate file? because we can't use the 'paginate' liquid function in an exterior autocompletearray.js file-->
 	<script type="text/javascript">
 		var data = [
 			{% for tag in collections.all.tags %}
