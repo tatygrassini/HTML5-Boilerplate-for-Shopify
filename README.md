@@ -1,7 +1,7 @@
-#  HTML5 Boilerplate [http://html5boilerplate.com](http://html5boilerplate.com)
+#  HTML5 Boilerplate For Shopify [http://html5boilerplateforshopify.com](http://html5boilerplateforshopify.com)
 
 ## Stated project aims.
-* Produce an unstyled shopify theme directly based on the html5Boilerplate code
+* Produce an unstyled Shopify theme directly based on the html5Boilerplate code
 * Include code snippets that a majority of Shopify themes would benefit from but also make them easily removable
 
 ## Changelog:
