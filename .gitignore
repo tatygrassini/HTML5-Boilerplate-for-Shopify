@@ -39,3 +39,6 @@ publish
 # build script local files
 build/buildinfo.properties
 build/config/buildinfo.properties
+
+/HTML5boilerplateforshopify_v0.3.zip
+/.gitignore

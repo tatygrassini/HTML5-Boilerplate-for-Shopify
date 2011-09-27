@@ -1,41 +1,41 @@
-<h2>Search Results</h2>
-
-{% if search.results_count > 0 %}
-	<ol id="product_list" class="thumb_list">
-		{% for item in search.results %}
-			<li class="grid_3">
-				<a href="{{item.url}}" class="product_list_image">
-					{% if item.featured_image %}
-						<img class="thumb_image  rot{%cycle '1','2','3','4','5','6','7'%}" src="{{ item.featured_image | product_img_url: 'medium'}}" title="More info on {{item.title}}" alt="{{ item.description | strip_html | truncate: 150 }} click for more information" />
+{% paginate search.results by 10 %}
+	<section id="search_results" class="collection">
+		<header>
+			<h1>Search Results</h1>
+		</header>
+		{% if search.results_count > 10 %}
+			<div id="pagination">
+				{{ paginate | default_pagination }}
+			</div>
+		{% endif %}
+		{% if search.results_count > 0 %}
+		<ol>
+			{% for item in search.results %}
+				<li class="{% if item.featured_image %}product{% else %}page{% endif %}">
+					<a href="{{item.url}}">
 						<h2>{{item.title}}</h2>
-					{% else %}
-						<div>{{item.title}}</div>
-					{% endif %}
-				</a>
-			</li>
-		{% endfor %}	
-	</ol>
-
-{% else %}
-
-	<h3>Oh dear...we've got nothing that matches "{{search.terms}}"</h3>
-	<p>You can:</p>
-	<ul>
-		<li>Try looking through the categories on the top of the page</li>
-		<li>Try putting less specific words in the search box you just used</li>
-	</ul>
-	
-{% endif %}
-
+						{% if item.featured_image %}
+							<img src="{{ item.featured_image | product_img_url: 'medium'}}" alt="{{ item.description | strip_html | truncate: 75 }} click for more information" />
+						{% endif %}
+					</a>
+				</li>
+			{% endfor %}	
+		</ol>
+		{% else %}
+			<h2>No Results</h2>
+		{% endif %}
+		{% if search.results_count > 10 %}
+			<div id="pagination">
+				{{ paginate | default_pagination }}
+			</div>
+		{% endif %}
+	</section>
+{% endpaginate %}
 
 
-<ol id="product_list" class="thumb_list">
-	{% for product in collection.products %}
-		<li class="grid_3">
-			<a href="{{product.url}}" class="product_list_image">
-				<img class="thumb_image rot{%cycle '1','2','3','4','5','6','7'%}" src="{{ product.featured_image | product_img_url: 'medium'}}" alt="{{ product.description | strip_html | truncate: 75 }} click for more information" />
-				<h2 class="rot{%cycle '1','2','3','4','5','6','7'%}">{{product.title}}</h2>
-			</a>
-		</li>
-	{% endfor %}	
-</ol>
+
+
+
+
+
+

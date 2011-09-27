@@ -1,7 +1,5 @@
 <div class="grid_10">
-	
 	<h1>{{ product.title }}</h1>
-	
 	<div>
 		<span  class='st_facebook_hcount' displayText='Facebook'></span>
 		<span  class='st_twitter_hcount' displayText='Tweet'></span>
@@ -50,19 +48,3 @@
 		{% endif %}
 	{% endfor %}
 </div>
-
-<!---
-<div id="promo_list" class="grid_16">
-	<h2>This week's promotional items:</h2>
-	<ul class="clearfix">
-		{% for product in collections.promotional_products.products limit:8 %}
-			<li class="grid_2{% if forloop.first %} alpha{% endif %}{% if forloop.last %} omega{% endif %}">
-				<a href="{{ product.url }}" 
-				title="{{product.title | escape}}" 
-				style="background-image: url({{ product.featured_image | product_img_url: 'small' }});background-repeat: no-repeat;background-position: -10px -10px;">
-					<span>{{product.title}}</span>
-				</a>			
-			</li>
-		{% endfor %}
-	</ul>
-</div> --->

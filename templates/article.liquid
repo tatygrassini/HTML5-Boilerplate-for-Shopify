@@ -1,4 +1,4 @@
-<article>
+<article id="{{page.handle}}" class="post">
 	<header>
 		<h1>{{ article.title }}</h1>
 		<p>Posted by <span rel="author">{{article.author}}</span> on <time datetime="{{ article.published_at | date: "%Y-%m-%dT%H:%M:%S%Z" }}" pubdate>{{ article.published_at | date: "%A, %B %d" }}</time></p>

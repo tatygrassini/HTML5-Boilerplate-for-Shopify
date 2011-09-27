@@ -1,8 +1,5 @@
 {% if cart.item_count == 0 %}
-	<h2 class="cart_no_items">Oh no!</h2>
-	<p class="cart_no_items">You haven't put anything in your basket. How about a <a href="/collections/clothing/dresses">nice dress?</a></p>
-	<a class="button push_6 grid_4" id="continue_shopping" href="/collections/all">Continue Shopping!</a>
-
+	<h1>Your basket is empty, <a href="/collections/all">Continue Shopping!</a></h1>
 {% else %}
 
 	<script type="text/javascript">
@@ -12,64 +9,59 @@
 		}
 	</script>
 
-	<form action="/cart" method="post" id="cartform" class="grid_16 alpha omega">
-		<h1>Checkout</h1>
-		<table class="grid_10 push_3" summary="list of all the products in your basket" border="0" cellspacing="0" cellpadding="0">
+	<form action="/cart" method="post" id="cartform">
+		<table summary="list of all the products in your basket" border="0" cellspacing="0" cellpadding="0">
 			<thead>
-				<tr class="firstrow odd">
-					<th class=" firstcell hidden_table_cell_content">&nbsp;Image</th>
-					<th class="grid_5 secondcell hidden_table_cell_content">Product Title</th>
-					<th class="grid_1 thirdcell">Price</th>
-					<th class="grid_1 fourthcell">Qty</th>
-					<th class="grid_1 fifthcell">Total</th>
-					<th class="grid_1 sixthcell hidden_table_cell_content">Remove this item</th>
+				<tr class="odd">
+					<th>Image</th>
+					<th>Product Title</th>
+					<th>Price</th>
+					<th>Qty</th>
+					<th>Total</th>
+					<th>Remove this item</th>
 				</tr>
 			</thead>
 			<tbody>
-			
 				{% for item in cart.items %}
 					<tr class="{% cycle 'even', 'odd' %}">
-						<td class=" firstcell">
+						<td>
 							<a class="cart_thumb" href="{{item.product.url}}" title="View {{item.title}} Page">
 								<img src="{{item.product.featured_image | product_img_url: 'pico' }}" alt="{{item.title | escape }}" />
 							</a>
 						</td>
-						<td class="grid_5 secondcell">
+						<td>
 							<a href="{{item.product.url}}" title="View {{item.title | escape }}">{{ item.title | truncate: 30 }}
 						</td>
-						<td class="grid_1 thirdcell">
+						<td>
 							{{ item.price | money }}
 						</td>
-						<td class="grid_1 fourthcell">
+						<td>
 							<input class="number" type="text" size="2" name="updates[{{item.variant.id}}]" id="updates_{{item.variant.id}}" value="{{item.quantity}}"/>
 						</td>
-						<td class="grid_1 fifthcell">
+						<td>
 							{{item.line_price | money }}
 						</td>
-						<td class="grid_1 sixthcell">
+						<td>
 							<a class="" title="remove {{item.title}} from your basket" href="#" onclick="remove_item({{ item.variant.id }}); return false;">delete</a>
 						</td>
 					</tr>
 				{% endfor %}
-				<tr class="lastrow">
-					<td class=""></td>
-					<td class="grid_5"></td>
-					<td class="grid_1"></td>
-					<td class="grid_1" id="update">
+				<tr class="last">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>
 						<input id="update_quantities" type="image" src="{{ "update.png" | asset_url }}" alt="Update Quantities" title="Changed any numbers? update your cart!" name="update" class="update" />
 					</td>
-					<td class="grid_1" id="total">{{ cart.total_price | money }}</td>
-					<td class="grid_1"></td>
+					<td>
+						{{ cart.total_price | money }}
+					</td>
+					<td></td>
 				</tr>
 				</tbody>			
 		</table>		
+		<a href="/collections/all">Continue Shopping</a>
 		
-
-
-		<a id="continue" class="grid_4 push_3 button" href="/collections/all">Continue Shopping</a>
-		
-		<input id="checkout" class="grid_4 push_4 button"  id="cart_submit" type="submit" value="Place your order" name="checkout" />
-		
-		
+		<input id="cart_submit" type="submit" value="Place your order" name="checkout" />
 	</form>
-	{% endif %}
+{% endif %}
