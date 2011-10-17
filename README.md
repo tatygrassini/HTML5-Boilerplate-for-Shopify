@@ -2,13 +2,12 @@
 
 ## Summary:
 
-This is a set of files that a front-end developer can use to get started on a website, with following included:
-
-1. Everything from HTML5 Boiler plate that can work under Shopify.
-2. A Jquery based autocomplete function for the search box (in as of v 0.3)
-3. All Shopify Template files optimised with HTML5 elements (probably complete around 0.6)
+1. Everything from HTML5 Boiler plate that can work under Shopify (complete at 0.1)
+2. A Jquery based autocomplete function for the search box (complete at 0.3)
+3. All Shopify Template files optimised with HTML5 elements (complete at 0.5)
 4. A checkout.css file to reset Shopify's own CSS styles, with space and hooks to then style the pages as you would like. (in at 0.2)
 5. A snippets folder full of relevent, HTML5 optimised off the shelf tools helpful for Shopify dev. (somewhere around 0.7)
+6. A few common features that are used in most Shopify shops a) An autocomplete for the search box, b) categories and sub categories, c) A carousel for the front page  (all complete at 0.5)
 
 ## Changelog:
 
