@@ -12,9 +12,17 @@ This is a set of files that a front-end developer can use to get started on a we
 
 ## Changelog:
 
+### v.0.5 : October 15th 2011
+* Updated product.liquid & index.liquid to fall in line with HTML5. This marks the completion of all basic liquid templates.
+* Updated article.liquid, page.liquid & index.liquid to fall into line with the article publishing guidelines from Readability (http://www.readability.com/publishers/guidelines/)
+* Implemented Colorbox v1.3.18 (http://jacklmoore.com/colorbox/) as a standard mage viewer. Considered only serving it to product pages, articles and standard text pages but that didn't leave many pages out so it's in everything now.
+* Implemented FlexSlider v1.7 (http://flex.madebymufffin.com/) why? every shopify shop has a carousel on the front page, I might as well build one in we can all use. This one is small, responsive and touch happy.
+* Created demo carousel on index.liquid, loops through a collection of products called "frontpage"
+* Asked the Shopify community for feedback....
+
 ### v.0.4 : September 27th, 2011
 * Updated README file
-* Updated collection.liquid to include semantic structure. Each collection is housed inside a section element with a header that contains the collections title & optional description. Pagination is outside the header, at the top and bottom of a standard ordered list. I have given the section a calss of "collection" so it's easy to target, and also given it an ID of that collections unique handle. This means you can style all collections as required but also do collection specific styling using the ID.
+* Updated collection.liquid to include semantic structure. Each collection is housed inside a section element with a header that contains the collections title & optional description. Pagination is outside the header, at the top and bottom of a standard ordered list. I have given the section a class of "collection" so it's easy to target, and also given it an ID of that collections unique handle. This means you can style all collections as required but also do collection specific styling using the ID.
 * Updated search.liquid to fall in line with the collection.liquid changes. Paginates every 10 results, pagniation is hidden if there are less than 10, remember to update all 3 pagination elements if you change this number. Each LI in the results list has a class of either product or page, depending on whether or not that item in the result search results arrayn has an image associated with it. Products have images, pages do not. I'll leave it up to you to decide what to do with this, suffice to say in can mess with your pretty search results pages if you have some things with images and some without.
 * Updated page.liquid to fall into line with (broadly) the article.liquid layout. Added a unique ID on the root article element of that pages handle, and added a class of "page"
 * Went back & updated article.liquid to contain have the posts handle as it's ID, and the class of "post" (just like page.liquid).
@@ -29,7 +37,7 @@ This is a set of files that a front-end developer can use to get started on a we
 ### v.0.2 : September 1st, 2011
 
 #### autocompletedataarray.js
-* Removed as it turns out we can;t use the paginate function in a page Shopify doesn't think we should be paginating in, meaning we can't loop through an array in it's entirety (50 limit)
+* Removed, as it turns out we can't use the paginate function in a page Shopify doesn't think we should be paginating in, meaning we can't loop through an array in it's entirety (50 limit)
 (see http://wiki.shopify.com/Pagination)
 
 #### checkout.css

@@ -1,2 +1,3 @@
 1. Create a smart collection called 'all' that contains all products.
 2. If your shop has a blog, create it in the Shopify admin and if you change the name from the default "news", update the RSS feed link in the head of the theme.liquid file.
+3. Page with the handle "frontpage" is written out to the index.liquid file (the shops home page) - make sure you have one.

@@ -1,20 +1,23 @@
-<div id="mainarticle" class="grid_10 alpha">
-	{% assign article = pages.frontpage %}
-	{% if article.content != "" %}
-		<h2>{{ article.title }}</h2>
+{% assign article = pages.frontpage %}
+<article id="{{page.handle}}" class="post hentry">
+	<header>
+		<h1 class="entry-title">{{ article.title }}</h1>
+		<p class="byline author vcard">Posted by <span class="fn" rel="author">{{article.author}}</span> on <time class="updated" datetime="{{ article.published_at | date: "%Y-%m-%dT%H:%M:%S%Z" }}" pubdate>{{ article.published_at | date: "%A, %B %d" }}</time></p>
+	</header>
+	<section class="entry-content" id="article_content">
+		<h1 hidden>Article content</h1>
 		{{ article.content }}
-	{% endif %}
-</div>
-
-<ul id="home_page_product_promo" class="grid_6 omega thumb_list">
-	{% for product in collections.frontpage.products %}
-		<li class="grid_3 
-			{% cycle 'alpha', 'omega' %}
-		">
-			<a href="{{ product.url }}" title="Details on the {{product.title}}">
-				<img class="thumb_image rot{%cycle '1','2','3','4','5','6','7'%}" src="{{ product.featured_image | product_img_url: 'medium' }}"/>
-				<h2 class="rot{%cycle '1','2','3','4','5','6','7'%}">{{product.title}}</h2>
-			</a>
-		</li>
-	{% endfor %}
-</ul>
+	</section>
+	<section class="flexslider">
+	    <ul class="slides">
+	    	{% for product in collections.frontpage.products %}
+		    	<li>
+		    		<a href="{{ product.url }}" title="{{product.title}}">
+						<img src="{{ product.featured_image | product_img_url: 'original' }}" />
+						<p class="flex-caption">{{product.title}}</p>
+					</a>
+		    	</li>
+			{% endfor %}
+	    </ul>
+	</section>
+</article>

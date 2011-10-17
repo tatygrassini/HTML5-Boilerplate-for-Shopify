@@ -1,9 +1,9 @@
-<article id="{{page.handle}}" class="post">
+<article id="{{page.handle}}" class="post hentry">
 	<header>
-		<h1>{{ article.title }}</h1>
-		<p>Posted by <span rel="author">{{article.author}}</span> on <time datetime="{{ article.published_at | date: "%Y-%m-%dT%H:%M:%S%Z" }}" pubdate>{{ article.published_at | date: "%A, %B %d" }}</time></p>
+		<h1 class="entry-title">{{ article.title }}</h1>
+		<p class="byline author vcard">Posted by <span class="fn" rel="author">{{article.author}}</span> on <time class="updated" datetime="{{ article.published_at | date: "%Y-%m-%dT%H:%M:%S%Z" }}" pubdate>{{ article.published_at | date: "%A, %B %d" }}</time></p>
 	</header>
-	<section id ="article_content">
+	<section class="entry-content" id="article_content">
 		<h1 hidden>Article content</h1>
 		{{ article.content }}
 	</section>

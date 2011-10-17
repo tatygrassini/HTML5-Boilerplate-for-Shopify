@@ -12,9 +12,23 @@
 	More info: h5bp.com/b/378 -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>{{shop.name}}</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<title>
+		{% if template == "page" %}
+			{{page.title}}
+		{% elsif template == "blog" %}
+			{{blog.title}}
+		{% elsif template == "article" %}
+			{{article.title}}
+		{% elsif template == "product" %}
+			{{product.title}}
+		{% elsif template == "collection" %}
+			{{collection.title}}	
+		{% endif %}
+		- {{shop.name}}
+	</title>
+	
+	<meta name="description" content="{{ settings.meta_description }}">
+	<meta name="keywords" content="{{ settings.meta_keywords }}">
 	
 	<!-- If we're on a product page or a blog post, output the first 160 characters of it's description / article -->
 	{% if template == "product" %}
@@ -38,15 +52,17 @@
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 	
 	<!--Favicons-->
-	<!--As we don;t have access to the root directory (mathiasbynens.be/notes/touch-icons) we need to specify icons-->
+	<!--As we don't have access to the root directory (mathiasbynens.be/notes/touch-icons) we need to specify icons-->
 	<!-- For iPhone 4 with high-resolution Retina display: -->
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/apple-touch-icon-114x114-precomposed.png">
 	<!-- For first-generation iPad: -->
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/apple-touch-icon-72x72-precomposed.png">
 	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="assets/apple-touch-icon-precomposed.png">
 
-	{{ 'style.css.css' | asset_url | stylesheet_tag }}
+	{{ 'style.css' | asset_url | stylesheet_tag }}
+	{{ 'colorbox.css' | asset_url | stylesheet_tag }}
+	{{ 'flexslider.css' | asset_url | stylesheet_tag }}
   
 	<!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
@@ -70,7 +86,19 @@
 </head>
 
 <body>
-	<h1>{% if page.title %} {{page.title}} {% else %} {{blog.title}} {% endif %}</h1>
+	<h1>
+		{% if template == "page" %}
+			{{page.title}}
+		{% elsif template == "blog" %}
+			{{blog.title}}
+		{% elsif template == "article" %}
+			{{article.title}} - {{blog.title}}
+		{% elsif template == "product" %}
+			{{product.title}}
+		{% elsif template == "collection" %}
+			{{collection.title}}	
+		{% endif %}
+	</h1>
 	<div id="container">
 		<header>	
 			<nav>
@@ -79,7 +107,7 @@
 					{% for link in linklists.main-menu.links %}
 						<li {% if link.object.tags and link.object.tags.size > 0 %} class="children"{% endif %}>
 							<a href="{{link.url}}">{{link.title}}</a>
-							{% if link.object.tags and link.object.tags.size > 0 %}
+							{% if link.object.tags and link.object.tags.size > 0 and link.type != "blog_link" %}
 								<ul>	
 									{% for tag in link.object.tags %}
 										{% capture tag_link %}{{ link.url }}/{{ tag | handle }}{% endcapture %}
@@ -121,6 +149,12 @@
 	
 	<!--Bring in the autocomplete code from http://docs.jquery.com/Plugins/autocomplete-->
 	{{ 'jquery.autocomplete.min.js' | asset_url | script_tag }}
+	
+	<!--Bring in Colorbox, modal window for Jquery, for more info see http://jacklmoore.com/colorbox/-->
+	{{ 'jquery.colorbox-min.js' | asset_url | script_tag }}
+
+	<!--Bring in Flexslider, responsive slider / carousel for Jquery, for more info see http://flex.madebymufffin.com/-->
+	{{ 'jquery.flexslider-min.js' | asset_url | script_tag }}
 	
 	{{ 'plugins.js' | asset_url | script_tag }}
 	

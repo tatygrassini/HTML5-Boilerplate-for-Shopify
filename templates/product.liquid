@@ -1,50 +1,53 @@
-<div class="grid_10">
-	<h1>{{ product.title }}</h1>
-	<div>
-		<span  class='st_facebook_hcount' displayText='Facebook'></span>
-		<span  class='st_twitter_hcount' displayText='Tweet'></span>
-		<span  class='st_email_hcount' displayText='Email'></span>
-		<span  class='st_sharethis_hcount' displayText='ShareThis'></span>
-	</div>
+<article id="{{product.handle}}" class="product hentry">
+	<header>
+		<h1 class="entry-title">{{ product.title }}</h1>
+	</header>
+	<section class="entry-content">
+		<h1 hidden>Product Description</h1>
 		
-	{{ product.description }}
-	
-	<form id="add_to_basket" action="/cart/add" method="post">
-		{% if product.available %}
-			{% if product.variants.size > 1 %}
-				<select id="variant-select" name="id" class="product-info-options">
+		{{ product.description }}
+		
+		<!-- The first image pulled form the product is a large image (480x480), subsequent images are "compact" which is 160x160 -->
+		<div id="product_images" class="grid_6">
+			{% for image in product.images %}
+				{% if forloop.first %}
+					<a href="{{ image | product_img_url: 'grande' }}" rel="colorbox" title="{{product.title}}">
+						<img src="{{ image | product_img_url: 'large'}}" alt="Picture of {{product.title}}" />
+					</a>
+				{% else %}
+					<a href="{{ image | product_img_url: 'grande' }}" rel="colorbox" title="{product.title}}">
+						<img src="{{ image | product_img_url: 'compact'}}" alt="Picture of {{product.title}}" />
+					</a>
+				{% endif %}
+			{% endfor %}
+		</div>
+		
+		<form id="add_to_basket" action="/cart/add" method="post">
+			{% if product.available %}
+				{% if product.variants.size > 1 %}
+					<select id="variant-select" name="id" class="product-info-options">
+						{% for variant in product.variants %}
+							{% if variant.available == true %}
+								<option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				{% else %}
 					{% for variant in product.variants %}
-						{% if variant.available == true %}
-							<option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+						{% if variant.available %}
+							<input type="hidden" name="id" value="{{ product.variants.first.id }}" />
 						{% endif %}
 					{% endfor %}
-				</select>
-			{% else %}
-				{% for variant in product.variants %}
-					{% if variant.available %}
-						<input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-					{% endif %}
-				{% endfor %}
+				{% endif %}
 			{% endif %}
-		{% endif %}
-		
-		<h2 id="price">{{ product.price_min | money }}{% if product.price_varies %} - {{ product.price_max | money }}{% endif %}</h2>
-		<input type="submit" class="button grid_4 push_3" name="add" value="Buy Now" id="add_to_basket_button" />
-	</form>
-</div>
 
-<div id="product_images" class="grid_6">
-	{% for image in product.images %}
-		{% if forloop.first %}
-			<a class="grid_6 alpha omega"  href="{{ image | product_img_url: 'grande' }}" class="large" rel="lightbox" title="Click for a larger picture of {{product.title}}">
-				<img class="product_shot" src="{{ image | product_img_url: 'large'}}" title="Click for a larger picture of {{product.title}}" alt="Picture of {{product.title}}" />
-				<img class="icon_enlarge" src="{{ 'expand.png' | asset_url }}" title="Click for a larger picture of {{product.title}}" alt="enlarge" />
-			</a>
-		{% else %}
-			<a href="{{ image | product_img_url: 'grande' }}" class="grid_3 {% cycle 'alpha', 'omega' %}" rel="lightbox" title="Click for a larger picture of {{product.title}}">
-				<img class="product_shot" src="{{ image | product_img_url: 'compact'}}" title="{{product.title}}" alt="Picture of {{product.title}}" />
-				<img class="icon_enlarge" src="{{ 'expand.png' | asset_url }}" title="Click for a larger picture of {{product.title}}" alt="enlarge" />
-			</a>
-		{% endif %}
-	{% endfor %}
-</div>
+			<h2 id="price">{{ product.price_min | money }}{% if product.price_varies %} - {{ product.price_max | money }}{% endif %}</h2>
+			{% if product.available %}
+				<input type="submit" name="add" value="Buy Now" />
+			{% else %}
+				<p>sorry, currently out of stock</p>
+			{% endif %}
+		</form>
+		
+	</section>
+</article>
