@@ -11,6 +11,18 @@
 
 ## Changelog:
 
+### v0.7 : February 28th 2012
+* HTML5 Boilerplate 3.0 is released, all files updated here where possible to match
+* style.css - cut and paste replace
+* Theme.liquid - updated with the changes to the HEAD detailed in the 2.0 - 3.0 release notes (https://github.com/h5bp/html5-boilerplate/compare/v2.0...v3.0)
+* Plugins.js - cut and paste replace
+* 404.liquid - not updated. Newer 404.html didn't add anything whilst inside the shopify system
+
+
+### v0.6 : October 20th 2011
+* Normalised the way that the META description & keywords fields are populated. If the page is a product or article, the first 150 characters of that pages content is output as the description for that page. Otherwise the info entered in the theme settings is used. With keywords a product page outputs that products tags into the keywords field, otherwise it's controlled by the keywords variable inside the theme settings.
+* Updated the way the title tag is populated in the Head, took some tips from the Lynda course here ( http://www.lynda.com/home/Player.aspx?lpk4=62998 )
+
 ### v.0.5 : October 15th 2011
 * Updated product.liquid & index.liquid to fall in line with HTML5. This marks the completion of all basic liquid templates.
 * Updated article.liquid, page.liquid & index.liquid to fall into line with the article publishing guidelines from Readability (http://www.readability.com/publishers/guidelines/)
